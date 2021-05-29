@@ -2,17 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int who_am_i (int id) {
-  return id;
-}
-
 int main(int argc, char *argv[]) {
   int nthreads, tid, var1;
 
   /* Divide em um conjunto de threads, cada uma com suas próprias variáveis */
   // default(shared) garante que todas as variáveis que não estejam explicitamente definidas como privadas
   // (private) serão compartilhadas e garantidas por um processo de exclusão mútua
-  #pragma omp parallel shared(var1) private(nthreads, tid)
+  #pragma omp parallel default(shared) private(nthreads, tid)
+  // #pragma omp parallel shared(var1) private(nthreads, tid)
   {
     /* Obtém o id da thread */
     tid = omp_get_thread_num(); //cada thread obtém o seu próprio id
